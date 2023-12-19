@@ -24,8 +24,7 @@ class blogDataService{
             } catch (error) {
                 reject(error)
             }
-        })
-        
+        })  
     }
  } /** akhir dari bagian blog */
 

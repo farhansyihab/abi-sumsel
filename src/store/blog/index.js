@@ -7,7 +7,12 @@ export const blogInfo = defineStore({
     }),
     getters: {
         getPostById: (state) => (id) => {
-            return state.posts.find(post => post.id === id)
+            try {
+                return state.posts.find(post => post.id === id)
+            } catch (error) {
+                return null
+                console.log(error)
+            }
         },
         getPostByIndex: (state) => (idx) =>{
             return state.posts[idx]

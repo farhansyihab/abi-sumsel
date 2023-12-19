@@ -4,24 +4,20 @@
             <div class="social-links  d-flex flex-row-reverse align-items-center" v-html="sosmedShare">
             </div>            
         </div>
-        <div class="container" v-html="generateHTML"  style="padding: 20px 15px 20px 15px;"></div>
+        <div class="container" v-html="htmlBlog"  style="padding: 20px 15px 20px 15px;"></div>
     </main>
 </template>
 
 <script>
 import { warn } from 'vue';
 import { blogInfo } from '../store/blog/index.js'
+import { blogDataService } from '../../firebase/BlogService.js'
 export default {
     name: "Detailinfo",
+    data(){
+        return { htmlBlog: ''}
+    },
     computed: {
-        generateHTML(){
-            const parameter = this.$route.params.id ;
-            const objData   = blogInfo().getPostById(parameter) ;
-            const judul     = `<h2>${objData.title} </h2>`;
-            const isiKonten = `<div>${objData.content}</div>` ;
-            const htmlData  = `<div>${judul} ${isiKonten}</div>` ;
-            return htmlData ;
-        },
         sosmedShare() {
             const parameter = this.$route.params.id ;
             const baseURL   = window.location.origin ;
@@ -35,6 +31,28 @@ export default {
     },
     beforeMount() {
         blogInfo().fetchPosts()
-    }  
+    },
+    mounted(){
+        this.generateHTML()
+    },
+    methods: {
+        ambilDataBlogById(){
+            const parameter = this.$route.params.id ;
+            const objBlog   = new blogDataService();
+            objBlog.getDataById(parameter).then((response) =>{ this.htmlBlog = `<h2>${response.title} </h2><div>${response.content}</div>`})
+        },
+        generateHTML(){
+            const parameter = this.$route.params.id ;
+            const objData   = blogInfo().getPostById(parameter) ;
+            if(objData != null){
+                const judul     = `<h2>${objData.title} </h2>`;
+                const isiKonten = `<div>${objData.content}</div>` ;
+                const htmlData  = `<div>${judul} ${isiKonten}</div>` ;
+                this.htmlBlog   = htmlData;
+            }else{
+                this.ambilDataBlogById()
+            }
+        }
+    }
 }
 </script>
