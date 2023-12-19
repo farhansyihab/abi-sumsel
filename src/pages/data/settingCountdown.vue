@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { countdown } from '../../store/countdown/index.js'
 export default {
     name: 'settingCountdown',
     data(){
@@ -65,7 +65,6 @@ export default {
     },
     mounted() { this.ambilData()},
     methods: {
-        ...mapActions('countdown', ['updateCountdown', 'getCountdown']),
         formatDate(date){
             const tgl           = new Date(date)
             const monthNames    = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
@@ -94,7 +93,7 @@ export default {
                     this.txtNama            = objEntries.nama;
                     this.tampil             = objEntries.tampil;                    
                 } catch (error) {
-                    this.getCountdown()
+                    countdown().getCountdown()
                     .then(response => {
                         this.txtJudul           = response.judul;
                         this.txtDetail          = response.detail;
@@ -107,7 +106,7 @@ export default {
                 }
                 // console.log('via localstorage')
             } else {
-                this.getCountdown()
+                countdown().getCountdown()
                 .then(response => {
                     this.txtJudul           = response.judul;
                     this.txtDetail          = response.detail;
@@ -127,7 +126,7 @@ export default {
                 nama: this.txtNama,
                 tampil: this.tampil,            
             }
-            this.updateCountdown(data)
+            countdown().updateCountdown(data)
             .then(response => response ? console.log(response) : console.log("belum berhasil") )
             .catch((err) => console.log(err))
         }        

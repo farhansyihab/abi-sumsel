@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { dataUsers } from '../../store/datausers/index.js'
 export default {
     name: 'updateUser',
     data(){
@@ -53,20 +53,13 @@ export default {
             txtPhone: ""
         }
     },
-    computed: {
-        ...mapGetters('users', [
-                        'getUserName', // -> this.getUserName
-                        'getUserPhoto', // -> this.getUserPhoto
-                        'getUserTelp', // -> this.getUserPhoto
-                ])
-    },
+    computed: {},
     mounted(){ this.getDataUser() },
     methods: {
-        ...mapActions('users', ['updateDataUser']),
         getDataUser(){
-            this.getUserName ? this.txtNama = this.getUserName : this.txtNama = "" ;
-            this.getUserPhoto ? this.txtURL = this.getUserPhoto : this.txtURL = "" ;
-            this.getUserTelp ? this.txtPhone = this.getUserTelp : this.txtPhone = "" ;
+            dataUsers().getUserName ? this.txtNama = this.getUserName : this.txtNama = "" ;
+            dataUsers().getUserPhoto ? this.txtURL = this.getUserPhoto : this.txtURL = "" ;
+            dataUsers().getUserTelp ? this.txtPhone = this.getUserTelp : this.txtPhone = "" ;
         },
         updateData(){
             const data = {
@@ -74,7 +67,7 @@ export default {
                 urlPhoto: this.txtURL,
                 noTelp: this.txtPhone
             }
-            this.updateDataUser(data)
+            dataUsers().updateDataUser(data)
             .then(response => response ? console.log(response) : console.log("belum berhasil") )
             .catch((err) => console.log(err))
         }

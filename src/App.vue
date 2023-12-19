@@ -2,9 +2,6 @@
   <Atas />
   <router-view/>
   <Bawah />
-  <button type="button" @click="startWorker">
-      Start
-    </button>
 </template>
 
 <script>
