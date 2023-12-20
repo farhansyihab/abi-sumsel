@@ -21,7 +21,7 @@ export default {
         sosmedShare() {
             const parameter = this.$route.params.id ;
             const baseURL   = window.location.origin ;
-            const fullURL   = `${baseURL}detailinfo/${parameter}`
+            const fullURL   = `${baseURL}/detailinfo/${parameter}`
             const whatsapp  = `<div><a href="https://api.whatsapp.com/send?text=${fullURL}" data-action="share/whatsapp/share" class="whatsapp"><i class="bi bi-whatsapp"></i></a></div>`
             const facebook  = '<div class="fb-share-button" data-href="${fullURL}" data-layout="" data-size=""><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fopmd-sumsel.web.app%2Fdetailinfo%2Ftag%3Ablogger.com%2C1999%3Ablog-5255358249157674175.post-1911537108658712600&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore"><i class="bi bi-facebook"></i></a></div>' 
             const twitter   = `<div><a href="#" class="twitter"><i class="bi bi-twitter"></i></a></div>`
