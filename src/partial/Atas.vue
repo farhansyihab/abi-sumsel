@@ -86,7 +86,7 @@ export default {
             navBar.classList.remove('hide');        
         }
         const LogOut = function(){
-            signOut(auth)
+            dataUsers().logout()
             this.tutupNavBar();
         }
         return {state, tutupNavBar, bukaNavBar, LogOut}

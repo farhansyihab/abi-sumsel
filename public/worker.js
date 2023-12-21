@@ -3,7 +3,7 @@ class blogDataService{
     #key    = "";
     #api    = "https://www.googleapis.com/blogger/v3/blogs";
     #blogId = "";
-    url     = ""
+    url     = "";
 
     constructor(kunci, idBlog){
         this.#key       = kunci;
@@ -31,7 +31,6 @@ class blogDataService{
 
 self.onmessage = (e) => {
     if(e.data !== undefined) {
-        // console.log('data yang diterima dari main adalah : ' + e.data.blogId)
          const blogData = new blogDataService(e.data.kunci, e.data.blogId)
          blogData.getAllData().then((response) => {
              self.postMessage(response)
@@ -39,4 +38,4 @@ self.onmessage = (e) => {
              self.postMessage(error);
          })
     }
-   };
+};

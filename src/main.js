@@ -15,7 +15,7 @@ import { createPinia } from 'pinia'
 import router from './router'
 import CKEditor from '@ckeditor/ckeditor5-vue';
 
-
+import { dataAnggotaServ } from '../firebase/dataAnggotaClass.js'
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
@@ -40,11 +40,20 @@ createApp(App)
   .mount('#app')
 
 
-  const baseURL   = window.location.origin + '/';
-  const myWorker  = new Worker(new URL('worker.js', baseURL));
-  const kunciBlog = blogKey();
-  myWorker.postMessage(kunciBlog)
+  const baseURL         = window.location.origin + '/';
+  const penyimpanan     = window.localStorage ;
+
+  const myWorker        = new Worker(new URL('worker.js', baseURL));
+  const kunciBlog       = blogKey();
+  myWorker.postMessage(kunciBlog);
   myWorker.onmessage = (e) => {
-    const penyimpanan   = window.localStorage ;
     penyimpanan.setItem("dataBlog", JSON.stringify(e.data.items)); 
+  }
+
+  const user = JSON.parse(penyimpanan.getItem("dataUser"))
+  const token = user.token
+  const wrkDataAnggota  =  new Worker(new URL('dataAnggotaWorker.js', baseURL));
+  wrkDataAnggota.postMessage(token);
+  wrkDataAnggota.onmessage = (e) => {
+    penyimpanan.setItem("dataAnggota", JSON.stringify(e.data)); 
   }

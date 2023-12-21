@@ -62,6 +62,24 @@ export const dataUsers = defineStore({
         SET_TOKEN(token){
             this.token = token
         },
+        simpanKePenyimpanan(){
+            const penyimpanan   = window.localStorage;
+            const datanya = {
+                user : this.user,
+                displayName: this.displayName,
+                urlPhoto: this.urlPhoto,
+                email: this.email,
+                noTelp: this.noTelp,
+                statusLogin: this.statusLogin,
+                credential: this.credential,
+                token: this.token
+            }
+            penyimpanan.setItem("dataUser", JSON.stringify(datanya)); 
+        },
+        hapusPenyimpanan(){
+            const penyimpanan   = window.localStorage;
+            penyimpanan.removeItem("dataUser"); 
+        },
         async login ( details) {
             const setUser   = this.SET_USER
             const { email, password } = details ;
@@ -93,13 +111,15 @@ export const dataUsers = defineStore({
             const setInfo           = this.SET_INFO
             const setKredensial     = this.SET_KREDENSIAL
             const setToken          = this.SET_TOKEN
+            const simpanLokal       = this.simpanKePenyimpanan
             try{
                 await signInWithPopup(auth, provider)
                 .then((result) => {
                     const credential = GoogleAuthProvider.credentialFromResult(result)
                     setKredensial(credential)
-                    setToken(credential.accessToken)
+                    setToken(result.user.accessToken)
                     setUser(result.user)
+                    simpanLokal()
                     const userdt    =  {
                         displayName: result.user.displayName,
                         urlPhoto: result.user.photoURL,
@@ -117,12 +137,12 @@ export const dataUsers = defineStore({
         // async register ( {commit}, details) {
     
         // },
-        async logout( {commit}) {
+        async logout() {
             const clearUser = this.CLEAR_USER
+            const hapusLokal = this.hapusPenyimpanan
             await signOut(auth)
-    
+            hapusLokal()
             clearUser()
-    
             router.push('/')
         },
         fetchUser() {
