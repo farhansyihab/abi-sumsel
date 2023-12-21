@@ -92,7 +92,10 @@ const router = createRouter({
     if(savedPosition){
       return savedPosition;
     }else if(to.hash){
-      selector: to.hash;
+      return{
+        el: to.hash,
+        behavior: 'smooth',
+      }
     }
   }
 })

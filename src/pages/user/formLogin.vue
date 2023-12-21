@@ -30,24 +30,48 @@
                     <div class="success-data" v-else>
                         <div class="text-center d-flex flex-column"> <i class='bx bxs-badge-check'></i> <span class="text-center fs-1">You have been logged in <br> Successfully</span> </div>
                     </div>
+                    <!-- Login via google-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="btn btn-outline-primary w-100" @click="loginGoogle">
+                                <span class="bi-google" aria-hidden="true"></span>&nbsp;&nbsp;Login With Google
+                            </button>
+                        </div>
+                    </div>
+                    <!-- end of login via google-->
                 </div>
             </div>
         </div>
     </div>    
 </template>
 <script>
-import { ref } from 'vue'
+import { ref,reactive } from 'vue'
 import { dataUsers } from '../../store/datausers/index.js'
+import router from '../../router/index.js';
 
 export default {
     name: "formLogin",
     setup() {
         const login_form    = ref({})
         const login         = () => { dataUsers().login(login_form.value)}
+        const loginGoogle   = function() { dataUsers().loginWithGoogle() }
+        const state = reactive({
+            submitted: false,
+        })
         return {
-            login_form, login
+            login_form, login, state, loginGoogle
         }
     },
+    methods: {
+        aturLogin(){
+            dataUsers().cekLogin().then(response => {
+                if(response){
+                    router.push('/')
+                }
+             })
+        }
+    },
+    mounted() { this.aturLogin()}
 }
 </script>
 

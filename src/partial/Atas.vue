@@ -37,8 +37,8 @@
                     </ul>
                 </li>        
                 <li @click="tutupNavBar()" class="nav-item"><router-link :to="{ name: 'kontak'}">Kontak Kami</router-link> </li>
-                <li @click="tutupNavBar()" class="nav-item" v-if="!statusLogin"><router-link :to="{ name: 'login'}">Login</router-link> </li>
-                <li class="nav-item dropdown" v-if="statusLogin">
+                <li @click="tutupNavBar()" class="nav-item" v-if="!statusLogin"><router-link @click="tutupNavBar()" :to="{ path: '/login'}" class="nav-item nav-link" class-active="active" v-if="!state.cekUlangLogin">Login</router-link> </li>
+                <li class="nav-item dropdown" v-if="state.cekUlangLogin">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Menu User</a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <li @click="tutupNavBar()" class="nav-item"><router-link :to="{ name: 'updateuser'}">Update User</router-link> </li>
@@ -56,40 +56,55 @@
 </template>
 
 <script>
-import { auth } from '../../firebase/index.js'
-import { signOut  } from "firebase/auth"
+import {reactive, computed} from "vue";
+import { getAuth, signOut  } from "firebase/auth"
+import router from '../router/index.js';
 import { dataUsers } from '../store/datausers/index.js'
+const auth = getAuth()
 export default {
   name: 'Atas',
-  data() {
-    return { 
-      statusNavBar : false, 
-      statusLogin : null,
-    }
-  },
+  setup() {
+        const alamat        = window.location.href
+        const alamatURL     = new URL(alamat)
+        const origin        = alamatURL.origin  
+        const state = reactive({
+            urlDepan: origin,
+            statusNavBar : false, 
+            statusLogin: false,
+            cekUlangLogin : computed(() => dataUsers().getStatusLogin),
+        })
+        const tutupNavBar = function() {
+            this.state.statusNavBar = false
+            const navBar = document.getElementById('navbarOPMD');
+            navBar.classList.toggle('hide');
+            navBar.classList.remove('show');
+        } 
+        const bukaNavBar = function() {
+            this.state.statusNavBar = true
+            const navBar = document.getElementById('navbarOPMD');
+            navBar.classList.toggle('show');
+            navBar.classList.remove('hide');        
+        }
+        const LogOut = function(){
+            signOut(auth)
+            this.tutupNavBar();
+        }
+        return {state, tutupNavBar, bukaNavBar, LogOut}
+    },
   beforeMount(){ this.cekLogin() },
   methods: {
-    tutupNavBar () {
-      this.statusNavBar = false ;
-      const navBar = document.getElementById('navbarOPMD');
-      navBar.classList.toggle('hide');
-      navBar.classList.remove('show');
-    },
-    bukaNavBar() {
-      this.statusNavBar = true ;
-      const navBar = document.getElementById('navbarOPMD');
-      navBar.classList.toggle('show');
-      navBar.classList.remove('hide');      
-    },
-    LogOut(){
-      signOut(auth)
-      this.tutupNavBar();
-    },
     cekLogin(){
       dataUsers().cekLogin().then(response => {
-        response? this.statusLogin = true : this.statusLogin = false ;
+        dataUsers().SET_USER(response)
+                this.state.statusLogin = true 
+                const userdt    =  {
+                    displayName: response.displayName,
+                    urlPhoto: response.photoURL,
+                    noTelp: response.phoneNumber,
+                }
+                dataUsers().SET_INFO(userdt)  
       })
-    }
+    },
   }
 }
 </script>

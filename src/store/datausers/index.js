@@ -1,7 +1,8 @@
 import { defineStore } from "pinia";
-import { auth } from '../../../firebase/index.js'
-import { signInWithEmailAndPassword, signOut, getAuth } from "firebase/auth"
+import router from "../../router/index.js"
+import { signInWithEmailAndPassword, signOut, getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth"
 import { getDatabase, ref, onValue , update } from "firebase/database";
+const auth = getAuth()
 
 export const dataUsers = defineStore({
     id: "datacontact",
@@ -12,6 +13,8 @@ export const dataUsers = defineStore({
         email: null,
         noTelp: null,
         statusLogin: false,
+        credential: null,
+        token: null
     }),
     getters: {
         getUserTelp : (state) => {
@@ -35,6 +38,7 @@ export const dataUsers = defineStore({
                 return "";
             }
         },
+        getStatusLogin: (state) => state.statusLogin
     },
     actions: {
         SET_USER (user) {
@@ -51,6 +55,12 @@ export const dataUsers = defineStore({
             this.displayName   = user.displayName;
             this.urlPhoto      = user.urlPhoto ;
             this.noTelp        = user.noTelp;
+        },
+        SET_KREDENSIAL(kredensial){
+            this.credential = kredensial
+        },
+        SET_TOKEN(token){
+            this.token = token
         },
         async login ( details) {
             const setUser   = this.SET_USER
@@ -75,7 +85,34 @@ export const dataUsers = defineStore({
                 return
             }
             setUser(auth.currentUser);
-            window.location.reload();
+            router.push('/')
+        },
+        async loginWithGoogle(){
+            const provider          = new GoogleAuthProvider();
+            const setUser           = this.SET_USER
+            const setInfo           = this.SET_INFO
+            const setKredensial     = this.SET_KREDENSIAL
+            const setToken          = this.SET_TOKEN
+            try{
+                await signInWithPopup(auth, provider)
+                .then((result) => {
+                    const credential = GoogleAuthProvider.credentialFromResult(result)
+                    setKredensial(credential)
+                    setToken(credential.accessToken)
+                    setUser(result.user)
+                    const userdt    =  {
+                        displayName: result.user.displayName,
+                        urlPhoto: result.user.photoURL,
+                        noTelp: result.user.phoneNumber,
+                    }
+                    setInfo(userdt) 
+                    router.push('/')
+                })
+                .catch((error) => {  return "ada error : "+ error })
+            }catch (error) { 
+                console.log("ada kesalahan : "+ error)
+                return
+            }
         },
         // async register ( {commit}, details) {
     
@@ -89,15 +126,12 @@ export const dataUsers = defineStore({
             router.push('/')
         },
         fetchUser() {
-            const clearUser = this.CLEAR_USER
-            const setUser   = this.SET_USER
-            const setInfo   = this.SET_INFO
             auth.onAuthStateChanged( async user => {
                 if(user === null){
-                    clearUser()
+                    this.CLEAR_USER()
                 }else{
-                    setUser(user)
-                    setInfo(user)
+                    this.SET_USER(user)
+                    this.SET_INFO(user)
                     if(router.isReady() && router.currentRoute.value.path === '/login'){
                         router.push('/')
                     }
@@ -105,29 +139,15 @@ export const dataUsers = defineStore({
             })
         },
         cekLogin(){
-            const clearUser = this.CLEAR_USER
-            const setUser   = this.SET_USER
-            const setInfo   = this.SET_INFO
+            const clearUser     = this.CLEAR_USER
             return new Promise(function(resolve, reject){
                 try {
                     auth.onAuthStateChanged( async user => {
                         if(user === null){
                             clearUser()
                             resolve(false)
-                        }else{
-                            setUser(user)
-                            const db        = getDatabase();
-                            const userId    = user.uid;
-                            const dataUser  = ref(db, '/profileUser/' + userId);
-                            onValue(dataUser, (snapshot) => {
-                                const userData    =  {
-                                    displayName: snapshot.val().namaUser,
-                                    urlPhoto: snapshot.val().urlPhoto,
-                                    noTelp: snapshot.val().noTelp,
-                                }
-                                setInfo(userData)                            
-                            }, { onlyOnce : true})
-                            resolve(true)
+                        }else{                          
+                            resolve(user)
                         }
                     })                 
                 } catch (error) {

@@ -18,6 +18,7 @@ import CKEditor from '@ckeditor/ckeditor5-vue';
 
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 import firebaseConfig from '../firebase/firebaseSettings.js'
 import blogKey from '../firebase/DataService.js';
