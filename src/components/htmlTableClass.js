@@ -18,10 +18,12 @@ export class tableGenerator {
         `).join('');
 
         const tableHtml = `
-            <table>
-                <thead>${headerRow}</thead>
-                <tbody>${bodyRows}</tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>${headerRow}</thead>
+                    <tbody>${bodyRows}</tbody>
+                </table>
+            </div>
         `;
 
         return tableHtml;

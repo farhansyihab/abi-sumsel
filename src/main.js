@@ -17,7 +17,7 @@ import CKEditor from '@ckeditor/ckeditor5-vue';
 
 import { dataAnggotaServ } from '../firebase/dataAnggotaClass.js'
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged  } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 import firebaseConfig from '../firebase/firebaseSettings.js'
@@ -49,9 +49,17 @@ createApp(App)
   myWorker.onmessage = (e) => {
     penyimpanan.setItem("dataBlog", JSON.stringify(e.data.items)); 
   }
-
+  let token ;
   const user = JSON.parse(penyimpanan.getItem("dataUser"))
-  const token = user.token
+  if(user.token == null){
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      token = user.accessToken
+    })
+  }else{
+    token = user.token
+  }
+  
   const wrkDataAnggota  =  new Worker(new URL('dataAnggotaWorker.js', baseURL));
   wrkDataAnggota.postMessage(token);
   wrkDataAnggota.onmessage = (e) => {

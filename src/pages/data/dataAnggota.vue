@@ -1,7 +1,13 @@
 <template>
-    
+    <div 
+    v-html="state.htmlTable"
+    class="container"
+    >
+
+    </div>
 </template>
 <script>
+import { reactive } from 'vue'
 import { tableGenerator } from '../../components/htmlTableClass.js'
 import { localData } from '../../../firebase/getLocalDataClass.js'
 export default {
@@ -26,3 +32,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    .container{
+        padding-top: 50px;
+    }
+</style>
