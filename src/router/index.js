@@ -81,7 +81,13 @@ const routes = [
     name: 'datacontact',
     component: () => import(/* webpackChunkName: "datacontact" */ '../pages/data/dataContact.vue'),
     meta: { requiresAuth: true }
-  },  
+  }, 
+  {
+    path: '/dataanggota',
+    name: 'dataanggota',
+    component: () => import(/* webpackChunkName: "dataanggota" */ '../pages/data/dataAnggota.vue'),
+    meta: { requiresAuth: true }
+  },
    
 ]
 
