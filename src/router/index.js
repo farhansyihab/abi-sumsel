@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { auth } from '../../firebase/index.js'
+import { auth } from '../firebase/index.js'
 
 const routes = [
   {

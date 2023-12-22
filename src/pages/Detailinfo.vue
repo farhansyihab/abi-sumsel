@@ -11,7 +11,7 @@
 <script>
 import { warn } from 'vue';
 import { blogInfo } from '../store/blog/index.js'
-import { blogDataService } from '../../firebase/BlogService.js'
+import { blogDataService } from '../firebase/BlogService.js'
 export default {
     name: "Detailinfo",
     data(){

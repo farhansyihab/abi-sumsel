@@ -22,7 +22,7 @@
 <script>
 import { reactive } from 'vue'
 import { tableGenerator } from '../../components/htmlTableClass.js'
-import { localData } from '../../../firebase/getLocalDataClass.js'
+import { localData } from '../../firebase/getLocalDataClass.js'
 export default {
     name: 'dataAnggota',
     setup(){
