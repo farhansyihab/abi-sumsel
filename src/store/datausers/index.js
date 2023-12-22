@@ -160,6 +160,9 @@ export const dataUsers = defineStore({
         },
         cekLogin(){
             const clearUser     = this.CLEAR_USER
+            const setUser       = this.SET_USER
+            const setToken      = this.SET_TOKEN
+            const simpanLokal   = this.simpanKePenyimpanan            
             return new Promise(function(resolve, reject){
                 try {
                     auth.onAuthStateChanged( async user => {
