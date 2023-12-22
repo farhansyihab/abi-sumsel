@@ -171,8 +171,8 @@ export const dataUsers = defineStore({
                             resolve(false)
                         }else{                          
                             resolve(user)
-                            setToken(result.user.accessToken)
-                            setUser(result.user)
+                            setToken(user.accessToken)
+                            setUser(user)
                             simpanLokal()
                         }
                     })                 
