@@ -48,7 +48,9 @@
                     <li @click="LogOut()" class="nav-item" ><a href="/">LogOut</a></li>
                   </ul>
                 </li>
+                <li @click="updateAplikasi()" class="nav-item"><a href="#">Update Aplikasi</a></li>
               </ul>
+              
             </div>
           </div>
       </nav><!-- .navbar -->
@@ -106,6 +108,16 @@ export default {
                 dataUsers().SET_INFO(userdt)  
       })
     },
+    updateAplikasi(){
+      if ('serviceWorker' in navigator) {
+        caches.keys().then(function(cacheNames) {
+          cacheNames.forEach(function(cacheName) {
+          caches.delete(cacheName);
+          });
+        });
+      }
+      setTimeout(() => {  window.location.reload(); }, 3000);
+    }
   }
 }
 </script>
