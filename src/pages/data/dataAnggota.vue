@@ -36,7 +36,7 @@ export default {
     mounted() { this.ambilData()},
     methods: {
         ambilData(){
-            const baseURL       = window.location.origin + '/' ;
+            const baseURL       = window.location.origin ;
             const dataLokal     = new localData("dataAnggota");
             const dataTable     = dataLokal.getObjJSONData();
             const mappedData    = dataTable.map((currValue, index) => ({

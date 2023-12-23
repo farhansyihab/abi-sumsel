@@ -88,6 +88,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "dataanggota" */ '../pages/data/dataAnggota.vue'),
     meta: { requiresAuth: true }
   },
+  {
+    path: '/detailanggota/:id',
+    name: 'detailanggota',
+    component: () => import(/* webpackChunkName: "detailAnggota" */ '../pages/data/detailAnggota.vue'),
+    params: true,
+  },
    
 ]
 
