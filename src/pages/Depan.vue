@@ -69,6 +69,7 @@
 import {Countdown} from 'vue3-flip-countdown'
 import { countdown as hitungMundur } from '../store/countdown/index.js'
 import { getDatabase, ref, onValue } from 'firebase/database'
+import { MainTag, sosmedTag } from '../components/classMainTag.js'
 const db = getDatabase()
 export default {
     name: "Depan",
@@ -84,7 +85,15 @@ export default {
         },
       }
     },
-    created() { this.deadlinePTD() },
+    created() { 
+      this.deadlinePTD() 
+      const tagDeskripsi = new MainTag('meta', 'name', 'description', 'DPW ABI SUMSEL Sinergi khidmad untuk bangsa yang bermartabat')
+      const strTagDeskripsi = tagDeskripsi.generateTag()
+      const tagSosmed = new sosmedTag('DPW ABI SUMSEL', 'Sinergi khidmad untuk bangsa yang bermartabat', 'https://abi-sumsel.web.app/img/logoabi.png')
+      const arrTagSosmed = tagSosmed.generateTag();
+      arrTagSosmed.push(strTagDeskripsi);
+      window.postMessage(arrTagSosmed)
+    },
     methods:{
       deadlinePTD(){
         const penyimpanan   = window.localStorage;

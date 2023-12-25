@@ -38,5 +38,16 @@
   </main> 
 </template>
 <script>
-export default { name: 'About',}
+import { MainTag, sosmedTag } from '../components/classMainTag.js'
+export default { 
+  name: 'About',
+  created(){
+    const tagDeskripsi = new MainTag('meta', 'name', 'description', 'Visi, Misi dan Sejarah Ahlulbait Indonesia ')
+    const strTagDeskripsi = tagDeskripsi.generateTag()
+    const tagSosmed = new sosmedTag('DPW ABI SUMSEL', 'Visi, Misi dan Sejarah Ahlulbait Indonesia', 'https://abi-sumsel.web.app/img/logoabi.png')
+    const arrTagSosmed = tagSosmed.generateTag();
+    arrTagSosmed.push(strTagDeskripsi);
+    window.postMessage(arrTagSosmed)    
+  }
+}
 </script>

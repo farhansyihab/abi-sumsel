@@ -84,6 +84,7 @@
 </template>
 <script>
 import { getDatabase, ref, push } from 'firebase/database'
+import { MainTag, sosmedTag } from '../components/classMainTag.js'
 const db = getDatabase()
 export default { 
   name: 'Contact',
@@ -97,6 +98,14 @@ export default {
       }
     }
   },
+  created(){
+    const tagDeskripsi = new MainTag('meta', 'name', 'description', 'alamat ABI SUMSEL')
+    const strTagDeskripsi = tagDeskripsi.generateTag()
+    const tagSosmed = new sosmedTag('DPW ABI SUMSEL', 'Jl. Residen Abdul Rozak No.11  Kalidoni', 'https://abi-sumsel.web.app/img/logoabi.png')
+    const arrTagSosmed = tagSosmed.generateTag();
+    arrTagSosmed.push(strTagDeskripsi);
+    window.postMessage(arrTagSosmed)    
+  },  
   methods: {
     saveMessageToFirebase() {
       const data          = this.formContact ;

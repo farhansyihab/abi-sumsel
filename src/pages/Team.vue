@@ -91,5 +91,16 @@
   </main>
 </template>
 <script>
-export default { name: 'Team',}
+import { MainTag, sosmedTag } from '../components/classMainTag.js'
+export default { 
+  name: 'Team',
+  created(){
+    const tagDeskripsi = new MainTag('meta', 'name', 'description', 'Team OPMD ABI SUMSEL ')
+    const strTagDeskripsi = tagDeskripsi.generateTag()
+    const tagSosmed = new sosmedTag('Team OPMD ABI SUMSEL', 'Muhamad Farhan as Front End Web Developer ', 'https://abi-sumsel.web.app/img/logoabi.png')
+    const arrTagSosmed = tagSosmed.generateTag();
+    arrTagSosmed.push(strTagDeskripsi);
+    window.postMessage(arrTagSosmed)    
+  }  
+  }
 </script>
