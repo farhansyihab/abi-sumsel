@@ -20,7 +20,28 @@ class blogDataService{
                     headers: {"Content-Type": "application/json",}
                 })
                 .then((response) => { return response.json(); })
-                .then((data) => { resolve(data) })
+                .then((data) => { 
+                    const arrData = data.items
+                    const dataBlog = arrData.map((element) => {
+                        const isiKonten = element.content;
+                        let strContent ;
+                        let strMeta ;
+                        if(isiKonten.indexOf("<!--pisah-->") > 0){
+                            const strElement = element.content
+                            const pisah = strElement.split("<!--pisah-->");
+                            strContent = pisah[0];
+                            strMeta = pisah[1]
+                        }else{
+                            strContent = isiKonten;
+                            strMeta = '';
+                        }
+                        return ({id: element.id, title: element.title, content: strContent, meta: strMeta});
+                    })
+                    const dtBlog = {
+                        kind: "blogger#postList", nextPageToken: "CgkIChjBz4_nxzEQ5pDEh-P16JMDGAA", items: dataBlog
+                    }
+                    resolve(dtBlog) ;
+                 })
             } catch (error) {
                 reject(error)
             }

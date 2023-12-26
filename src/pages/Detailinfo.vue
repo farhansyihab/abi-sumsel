@@ -12,10 +12,11 @@
 import { warn } from 'vue';
 import { blogInfo } from '../store/blog/index.js'
 import { blogDataService } from '../firebase/BlogService.js'
+import { MainTag, sosmedTag } from '../components/classMainTag.js'
 export default {
     name: "Detailinfo",
     data(){
-        return { htmlBlog: ''}
+        return { htmlBlog: '', metaTag: ''}
     },
     computed: {
         sosmedShare() {
@@ -39,7 +40,10 @@ export default {
         ambilDataBlogById(){
             const parameter = this.$route.params.id ;
             const objBlog   = new blogDataService();
-            objBlog.getDataById(parameter).then((response) =>{ this.htmlBlog = `<h2>${response.title} </h2><div>${response.content}</div>`})
+            objBlog.getDataById(parameter).then((response) =>{ 
+                this.htmlBlog = `<h2>${response.title} </h2><div>${response.content}</div>`
+                this.metaTag = response.meta
+            })
         },
         generateHTML(){
             const parameter = this.$route.params.id ;
@@ -49,10 +53,28 @@ export default {
                 const isiKonten = `<div>${objData.content}</div>` ;
                 const htmlData  = `<div>${judul} ${isiKonten}</div>` ;
                 this.htmlBlog   = htmlData;
+                this.metaTag    = objData.meta
             }else{
                 this.ambilDataBlogById()
             }
-        }
+        },
+    },
+    beforeCreate(){
+        const parameter     = this.$route.params.id ;
+        const penyimpanan   = window.localStorage
+        const entries       = penyimpanan.getItem("dataBlog")
+        const objData       = JSON.parse(entries)
+        const objDataIni    = objData.find(post => post.id === parameter)
+        const objMeta       = JSON.parse(objDataIni.meta)
+        const objDeskripsi  = objMeta.mainTag
+        const objSosmed     = objMeta.sosmedTag
+        /** Sekarang mulai dari sini masukkan tag ke HTML utama */
+        const tagDeskripsi = new MainTag(objDeskripsi.tagName, objDeskripsi.tagPoperty,  objDeskripsi.tagDeskripsi, objDeskripsi.tagContent)
+        const strTagDeskripsi = tagDeskripsi.generateTag()
+        const tagSosmed = new sosmedTag(objSosmed.contentTitle, objSosmed.contentDescription, objSosmed.contentImage)
+        const arrTagSosmed = tagSosmed.generateTag();
+        arrTagSosmed.push(strTagDeskripsi);
+        window.postMessage(arrTagSosmed)        
     }
 }
 </script>
