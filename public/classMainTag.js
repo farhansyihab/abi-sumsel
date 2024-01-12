@@ -1,4 +1,4 @@
-export class MainTag {
+class MainTag {
     #tagName ;
     #tagAtribute ;
     #contentOfAtribute ;
@@ -18,16 +18,16 @@ export class MainTag {
     }
 }
 
-export class sosmedTag{
+class sosmedTag{
     #contentTitle ;
     #contentDescription;
     #contentUrl ;
     #contentImage ;
 
-    constructor(title=null, deskripsi=null, image=null, url='https://abi-sumsel.web.app/'){
+    constructor(title=null, deskripsi=null, image=null){
         this.#contentTitle = title ;
         this.#contentDescription = deskripsi;
-        this.#contentUrl = url;
+        this.#contentUrl = window.location.href;
         this.#contentImage = image;
     }
 
@@ -51,11 +51,11 @@ export class sosmedTag{
             letArray.push(objTag2);
         }
         if(this.#contentUrl != null){
-            objTag3.setAttribute("content",this.#contentUrl);
+            objTag3.setAttribute("content",window.location.href);
             letArray.push(objTag3);
         }
         if(this.#contentImage != null || this.#contentImage.lenght > 1){
-            objTag3.setAttribute("content",this.#contentImage);
+            objTag4.setAttribute("content",this.#contentImage);
             letArray.push(objTag4);
         }
         console.dir(letArray)

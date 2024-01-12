@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <div id="kop" class="col-12"><img :src="require('../../assets/img/ataskopsurat.png')" style="width: 100%;"/></div>
+            <div id="kop" class="col-12"><img src="/img/ataskopsurat.png" style="width: 100%;"/></div>
         </div>
         <h3 style="text-align: center;">Jadwal Pendidikan Tingkat Menengah</h3>
         <div class="row">

@@ -58,23 +58,6 @@ export default {
                 this.ambilDataBlogById()
             }
         },
-    },
-    beforeCreate(){
-        const parameter     = this.$route.params.id ;
-        const penyimpanan   = window.localStorage
-        const entries       = penyimpanan.getItem("dataBlog")
-        const objData       = JSON.parse(entries)
-        const objDataIni    = objData.find(post => post.id === parameter)
-        const objMeta       = JSON.parse(objDataIni.meta)
-        const objDeskripsi  = objMeta.mainTag
-        const objSosmed     = objMeta.sosmedTag
-        /** Sekarang mulai dari sini masukkan tag ke HTML utama */
-        const tagDeskripsi = new MainTag(objDeskripsi.tagName, objDeskripsi.tagPoperty,  objDeskripsi.tagDeskripsi, objDeskripsi.tagContent)
-        const strTagDeskripsi = tagDeskripsi.generateTag()
-        const tagSosmed = new sosmedTag(objSosmed.contentTitle, objSosmed.contentDescription, objSosmed.contentImage)
-        const arrTagSosmed = tagSosmed.generateTag();
-        arrTagSosmed.push(strTagDeskripsi);
-        window.postMessage(arrTagSosmed)        
     }
 }
 </script>

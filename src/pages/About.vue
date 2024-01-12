@@ -29,7 +29,7 @@
             <h3><span><span>Sejarah Ahlulbait Indonesia</span></span></h3>
             <p style="text-align: justify;">Dalam tiga dekade terakhir, dakwah kalangan pencinta dan penganut mazhab Ahlulbait menunjukkan perkembangan yang menggembirakan. Mereka berhasil meningkatkan kualitas kegiatan di berbagai sektor dalam rangka menyebarkan misi  luhur Ahlulbait Nabi yang suci. Beberapa lembaga pendidikan, pengkajian Al-Quran dan Hadits, penerbitan buku, media massa, dan sebagainya telah didirikan untuk mendukung misi luhur penyebaran ajaran Ahlulbait.</p>
             <p style="text-align: justify;">Perkembangan dakwah  tersebut membuka harapan baru bagi masyarakat Ahlulbait Indonesia untuk kian aktif berpartisipasi mencerdaskan dan mengembangkan kehidupan berbangsa dan bernegara. Masyarakat Ahlulbait ingin terlibat aktif dalam perjalanan bangsa mencapai puncak cita-cita kemerdekaan yang selama ini dirasakan belum optimal. Untuk  itu, para mubaligh dan aktifis mazhab Ahlulbait mulai berpikir untuk menemukan langkah-langkah strategis bagi kepentingan dakwah yang lebih tepat di masa depan.</p>
-            <p><a href='/detailinfo/2731763834557398828' class="btn btn-primary">Baca selengkapnya</a></p>
+            <p><a href='/post/abi/2731763834557398828.html' class="btn btn-primary">Baca selengkapnya</a></p>
           </div>
         </div>
 
@@ -41,13 +41,5 @@
 import { MainTag, sosmedTag } from '../components/classMainTag.js'
 export default { 
   name: 'About',
-  created(){
-    const tagDeskripsi = new MainTag('meta', 'name', 'description', 'Visi, Misi dan Sejarah Ahlulbait Indonesia ')
-    const strTagDeskripsi = tagDeskripsi.generateTag()
-    const tagSosmed = new sosmedTag('DPW ABI SUMSEL', 'Visi, Misi dan Sejarah Ahlulbait Indonesia', 'https://abi-sumsel.web.app/img/logoabi.png')
-    const arrTagSosmed = tagSosmed.generateTag();
-    arrTagSosmed.push(strTagDeskripsi);
-    window.postMessage(arrTagSosmed)    
-  }
 }
 </script>

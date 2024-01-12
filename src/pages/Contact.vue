@@ -97,14 +97,6 @@ export default {
         message: ''
       }
     }
-  },
-  created(){
-    const tagDeskripsi = new MainTag('meta', 'name', 'description', 'alamat ABI SUMSEL')
-    const strTagDeskripsi = tagDeskripsi.generateTag()
-    const tagSosmed = new sosmedTag('DPW ABI SUMSEL', 'Jl. Residen Abdul Rozak No.11  Kalidoni', 'https://abi-sumsel.web.app/img/logoabi.png')
-    const arrTagSosmed = tagSosmed.generateTag();
-    arrTagSosmed.push(strTagDeskripsi);
-    window.postMessage(arrTagSosmed)    
   },  
   methods: {
     saveMessageToFirebase() {

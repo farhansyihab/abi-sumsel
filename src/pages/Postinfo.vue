@@ -1,6 +1,7 @@
 <template>
     <main id="main">
        <div class="container" v-html="generateHTML"></div>
+       <div><a href="/post/abi/01.html">Link percobaan</a></div>
     </main>
 </template>
 <script>
@@ -14,11 +15,11 @@ export default {
             let htmlData    = '';
             for(let index = 0; index < objData.length; index++){
                 let id      = objData[index].id
-                let htmlid  = `<div class="card-footer"><a href='/detailinfo/${id}' class="btn btn-primary">Baca selengkapnya</a></div>`
+                let htmlid  = `<div class="card-footer"><a href='/post/abi/${id}.html' class="btn btn-primary">Baca selengkapnya</a></div>`
                 let judul   = `<div class="card-header"><h2 class="card-title">${objData[index].title} </h2></div>`;
                 let potong  = objData[index].content.split("<a name='more'></a>")
                 let isi     = `<div class="card-body">${potong[0]}</div>`
-                if(id === 'tag:blogger.com,1999:blog-5255358249157674175.post-8640022254730055554'){
+                if(id === null){
                     htmlData = htmlData + ''
                 } else {
                     htmlData    = htmlData + `<div class="card">${judul} ${isi}${htmlid}</div>` ;

@@ -87,12 +87,6 @@ export default {
     },
     created() { 
       this.deadlinePTD() 
-      const tagDeskripsi = new MainTag('meta', 'name', 'description', 'DPW ABI SUMSEL Sinergi khidmad untuk bangsa yang bermartabat')
-      const strTagDeskripsi = tagDeskripsi.generateTag()
-      const tagSosmed = new sosmedTag('DPW ABI SUMSEL', 'Sinergi khidmad untuk bangsa yang bermartabat', 'https://abi-sumsel.web.app/img/logoabi.png')
-      const arrTagSosmed = tagSosmed.generateTag();
-      arrTagSosmed.push(strTagDeskripsi);
-      window.postMessage(arrTagSosmed)
     },
     methods:{
       deadlinePTD(){
