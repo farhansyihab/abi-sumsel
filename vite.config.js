@@ -10,6 +10,7 @@ export default defineConfig({
   plugins: [
     vue(), 
     VitePWA({
+      workbox: { navigateFallbackDenylist: [/^\/post/] },
       manifest:{
         icons: [
           {src: "/img/icons/android-launchericon-48-48.png", sizes: "48x48", type: "image/png", purpose: "any maskable"},
