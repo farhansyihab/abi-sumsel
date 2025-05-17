@@ -68,6 +68,53 @@
 
 
         </div>
+        <div>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <h4>Departemen Kaderisasi</h4>
+              <ul>
+                <li>Ahmad Bagir</li>
+                <li>Ahmad Najib</li>
+              </ul>
+            </li>
+            <li class="list-group-item">
+              <h4>Departemen Organisasi</h4>
+              <ul>
+                <li>Ali Zainal Abidin</li>
+                <li>Hakim Adnan</li>
+              </ul>
+            </li>            
+            <li class="list-group-item">
+              <h4>Departemen Pemberdayaan Ekonomi</h4>
+              <ul>
+                <li>Muhammad Bagir Smith</li>
+                <li>S. Hasan</li>
+              </ul>
+            </li>
+            <li class="list-group-item">
+              <h4>Departemen Pengembangan Sumber Daya Manusia</h4>
+              <ul>
+                <li>Ahmad Muhajir</li>
+                <li>Muhammad Ridho Al Habsyi</li>
+              </ul>
+            </li>
+            <li class="list-group-item">
+              <h4>Departemen Humas, Media & Penerangan</h4>
+              <ul>
+                <li>Muhamad Farhan</li>
+                <li>Muhammad Darma</li>
+              </ul>
+            </li>  
+            <li class="list-group-item">
+              <h4>Departemen Litbang</h4>
+              <ul>
+                <li>Muhammad Bagir</li>
+                <li>Ja'far Shodiq</li>
+              </ul>
+            </li>                                 
+          </ul>
+          
+        </div>
 
       </div>
     </section><!-- End Team Section -->
