@@ -26,7 +26,7 @@
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li @click="tutupNavBar()" class="nav-item"><router-link to="/">Beranda</router-link></li>
                 <li @click="tutupNavBar()" class="nav-item"><router-link :to="{ name: 'about'}">About</router-link> </li>
-                <li @click="tutupNavBar()" class="nav-item"><router-link :to="{ name: 'team'}">Pengurus OPMD</router-link> </li>
+                <li @click="tutupNavBar()" class="nav-item"><router-link :to="{ name: 'team'}">Struktur Organisasi</router-link> </li>
                 <li @click="tutupNavBar()" class="nav-item"><router-link :to="{ name: 'info'}">Info</router-link> </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pendaftaran</a>
