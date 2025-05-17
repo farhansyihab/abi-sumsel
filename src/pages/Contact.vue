@@ -26,7 +26,7 @@
                 <i class="bi bi-envelope flex-shrink-0"></i>
                 <div>
                   <h4>Email:</h4>
-                  <p>ahmadz18637@gmail.com</p>
+                  <p>agiptek@gmail.com</p>
                 </div>
               </div><!-- End Info Item -->
 
@@ -34,7 +34,7 @@
                 <i class="bi bi-phone flex-shrink-0"></i>
                 <div>
                   <h4>Telp:</h4>
-                  <p>+62 851 6355 9153</p>
+                  <p>+62 852 6893 99238</p>
                 </div>
               </div><!-- End Info Item -->
             </div>
