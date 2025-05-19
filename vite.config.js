@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import ckeditor5 from '@ckeditor/vite-plugin-ckeditor5';
 import { VitePWA } from 'vite-plugin-pwa'
 import { createRequire } from 'node:module';
+import { visualizer } from 'rollup-plugin-visualizer'
 const require = createRequire( import.meta.url );
 
 export default defineConfig({
@@ -20,6 +21,11 @@ export default defineConfig({
           {src: "/img/icons/android-chrome-512x512.png", sizes: "512x512", type: "image/png", purpose: "any maskable"},
         ]
       }
+    }),
+    visualizer({
+      open: true,
+      gzipSize: true,
+      brotliSize: true,
     }),
     ckeditor5( { theme: require.resolve( '@ckeditor/ckeditor5-build-classic' ) } )
   ],
