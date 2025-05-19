@@ -66,7 +66,8 @@
 </template>
 
 <script>
-import {Countdown} from 'vue3-flip-countdown'
+// import {Countdown} from 'vue3-flip-countdown'
+const Countdown = defineAsyncComponent(() => import('vue3-flip-countdown'));
 import { countdown as hitungMundur } from '../store/countdown/index.js'
 import { getDatabase, ref, onValue } from 'firebase/database'
 import { MainTag, sosmedTag } from '../components/classMainTag.js'

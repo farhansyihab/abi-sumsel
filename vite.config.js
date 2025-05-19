@@ -8,6 +8,15 @@ import { visualizer } from 'rollup-plugin-visualizer'
 const require = createRequire( import.meta.url );
 
 export default defineConfig({
+    build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          countdown: ['vue3-flip-countdown'],
+        }
+      }
+    }
+  },
   plugins: [
     vue(), 
     VitePWA({
