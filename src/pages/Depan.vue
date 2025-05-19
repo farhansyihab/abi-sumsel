@@ -40,7 +40,7 @@
           <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-microsoft-teams"></i></div>
-              <h4 class="title"><a href="/team" class="stretched-link">Anggota OPMD</a></h4>
+              <h4 class="title"><a href="/team" class="stretched-link">Struktur Organisasi</a></h4>
             </div>
           </div><!--End Icon Box -->
 
