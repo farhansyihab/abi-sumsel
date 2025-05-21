@@ -5,6 +5,8 @@ import ckeditor5 from '@ckeditor/vite-plugin-ckeditor5';
 import { VitePWA } from 'vite-plugin-pwa'
 import { createRequire } from 'node:module';
 import { visualizer } from 'rollup-plugin-visualizer'
+
+
 const require = createRequire( import.meta.url );
 
 export default defineConfig({
@@ -38,9 +40,14 @@ export default defineConfig({
     }),
     ckeditor5( { theme: require.resolve( '@ckeditor/ckeditor5-build-classic' ) } )
   ],
+  worker: {
+    format: 'es', // Format ES Modules
+    plugins: []   // Tambahan plugin jika diperlukan
+  },
   resolve: {
     alias: {
-      '@': fileURLToPath( new URL( './src', import.meta.url ) )
+      '@': fileURLToPath( new URL( './src', import.meta.url ) ),
+      '@worker': fileURLToPath( new URL( './src/workers', import.meta.url ) ),
     }
   }
 })

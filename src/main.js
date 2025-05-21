@@ -22,6 +22,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 import firebaseConfig from './firebase/firebaseSettings.js'
 import blogKey from './firebase/DataService.js';
+import { checkForUpdates } from '@/utils/blogUpdater';
 
   // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
@@ -42,14 +43,25 @@ createApp(App)
 
   const baseURL         = window.location.origin + '/';
   const penyimpanan     = window.localStorage ;
-
-  const myWorker        = new Worker(new URL('worker.js', baseURL));
   const kunciBlog       = blogKey();
-  myWorker.postMessage(kunciBlog);
-  myWorker.onmessage = (e) => {
-    penyimpanan.setItem("dataBlog", JSON.stringify(e.data.items)); 
-  }
-  
+
+    function loadBlogData(){
+        const myWorker        = new Worker(new URL('@worker/blog.worker.js', import.meta.url));
+        myWorker.postMessage(kunciBlog);
+        myWorker.onmessage = (e) => {
+            penyimpanan.setItem("dataBlog", JSON.stringify(e.data.items)); 
+        }
+    }
+
+    loadBlogData();
+
+     // Cek update setiap 30 menit
+    setInterval(() => {
+        checkForUpdates(kunciBlog, () => {
+        loadBlogData(); // Panggil ini jika ada update
+        });
+    }, 30 * 60 * 1000);
+
   let token ;
   onAuthStateChanged(auth, (user) => {
     if(user){
