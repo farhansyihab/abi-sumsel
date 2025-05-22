@@ -71,12 +71,6 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/settingcountdown',
-    name: 'settingcountdown',
-    component: () => import(/* webpackChunkName: "settingCountdown" */ '../pages/data/settingCountdown.vue'),
-    meta: { requiresAuth: true }
-  },
-  {
     path: '/datacontact',
     name: 'datacontact',
     component: () => import(/* webpackChunkName: "datacontact" */ '../pages/data/dataContact.vue'),

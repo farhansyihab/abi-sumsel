@@ -42,7 +42,6 @@
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Menu User</a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <li @click="tutupNavBar()" class="nav-item"><router-link :to="{ name: 'updateuser'}">Update User</router-link> </li>
-                    <li @click="tutupNavBar()" class="nav-item"><router-link :to="{ name: 'settingcountdown'}">Setting Count Down</router-link> </li>
                     <li @click="tutupNavBar()" class="nav-item"><router-link :to="{ name: 'datacontact'}">Respon Pengunjung</router-link> </li>
                     <li @click="tutupNavBar()" class="nav-item"><router-link :to="{ name: 'dataanggota'}">Data Kader ABI</router-link> </li>
                     <li @click="LogOut()" class="nav-item" ><a href="/">LogOut</a></li>

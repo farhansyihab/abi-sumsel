@@ -4,14 +4,6 @@
     <div class="container position-relative">
       <div class="row gy-5" data-aos="fade-in">
 
-        <div id="contDown" class="col-lg-2 order-1 order-lg-1" v-if="countdown.tampil">
-          <div class="row">
-            <div class="col-12 text-center" style="font-size: 14px;"><b>{{ countdown.judul }}</b></div>
-            <div class="col-12 text-center" style="font-size: 12px;">{{ countdown.detail }}</div>
-            <div class="col-12"><Countdown :deadline="countdown.batasTanggal" :labels="countdown.labelHari"/></div>
-          </div>
-        </div>
-
         <div class="col-lg-4 order-3 order-lg-2 d-flex flex-column justify-content-center text-center text-lg-start">
           <h2>DPW <span>ABI SUMSEL</span></h2>
           <p>Sinergi khidmad untuk bangsa yang bermartabat</p>
@@ -66,68 +58,17 @@
 </template>
 
 <script>
-// import {Countdown} from 'vue3-flip-countdown'
 import { defineAsyncComponent } from 'vue';
-const Countdown = defineAsyncComponent(() => import('vue3-flip-countdown'));
-import { countdown as hitungMundur } from '../store/countdown/index.js'
 import { getDatabase, ref, onValue } from 'firebase/database'
 import { MainTag, sosmedTag } from '../components/classMainTag.js'
 const db = getDatabase()
 export default {
     name: "Depan",
-    components: { Countdown },
     data() {
-      return { 
-        countdown: {
-          labelHari: {days: 'Hari',hours: 'Jam',minutes: 'Menit',seconds: 'Detik',},
-          batasTanggal: Date(),
-          judul: "",
-          detail: "",
-          tampil: true,
-        },
-      }
+      return { }
     },
-    created() { 
-      this.deadlinePTD() 
-    },
+    created() {},
     methods:{
-      deadlinePTD(){
-        const penyimpanan   = window.localStorage;
-        const entries       = penyimpanan.getItem("dataCountDown");
-        if(entries != null){
-          try {
-            const objEntries               = JSON.parse(entries)
-            this.countdown.judul           = objEntries.judul;
-            this.countdown.detail          = objEntries.detail;
-            this.countdown.batasTanggal    = this.formatDate(objEntries.batasTanggal);
-            this.countdown.tampil          = objEntries.tampil;
-            hitungMundur().getCountdown()
-            .then(response => {
-              this.countdown.batasTanggal   = this.formatDate(response.batasTanggal);
-              this.countdown.judul          = response.judul;
-              this.countdown.detail         = response.detail;
-              this.countdown.tampil         = response.tampil; 
-            })     
-          } catch (error) {
-            hitungMundur().getCountdown()
-            .then(response => {
-              this.countdown.batasTanggal   = this.formatDate(response.batasTanggal);
-              this.countdown.judul          = response.judul;
-              this.countdown.detail         = response.detail;
-              this.countdown.tampil         = response.tampil;           
-            })
-            console.log(`dari bagian elseif objEntries ${error}`)
-          }
-        }else{
-          hitungMundur().getCountdown()
-            .then(response => {
-              this.countdown.batasTanggal   = this.formatDate(response.batasTanggal);
-              this.countdown.judul          = response.judul;
-              this.countdown.detail         = response.detail;
-              this.countdown.tampil         = response.tampil;           
-            })          
-        }// akhir dari elseif
-      },
       formatDate(date){
             const tgl           = new Date(date)
             const monthNames    = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
