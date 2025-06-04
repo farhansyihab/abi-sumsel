@@ -30,6 +30,22 @@ export default defineConfig({
           {src: "/img/icons/android-chrome-192x192.png", sizes: "192x192", type: "image/png", purpose: "any maskable"},
           {src: "/img/icons/android-chrome-512x512.png", sizes: "512x512", type: "image/png", purpose: "any maskable"},
         ]
+      },
+      registerType: 'autoUpdate',
+      workbox: {
+        // Exclude dynamic routes (/post/*) from precaching
+        navigateFallback: '/index.html', // Fallback untuk SPA
+        navigateFallbackDenylist: [
+          // Tambahkan regex untuk URL yang tidak boleh di-handle oleh Service Worker
+          new RegExp('^/post/'),
+        ],
+        runtimeCaching: [
+          // Cache strategi untuk assets statis (CSS, JS, dll)
+          {
+            urlPattern: ({ request }) => request.destination === 'script' || request.destination === 'style',
+            handler: 'CacheFirst',
+          }
+        ],
       }
     }),
     visualizer({
