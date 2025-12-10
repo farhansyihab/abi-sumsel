@@ -80,7 +80,8 @@ class ArticlePage(Page):
         help_text="Gambar untuk share di media sosial (1200x630 px, jika kosong gunakan featured_image)"
     )    
     
-    template = "home/article_detail.html"
+    template = "home/article_detail_fixed.html"
+    # template = "home/article_detail.html"
     parent_page_types = ['home.ArticleIndexPage']
     subpage_types = []
     

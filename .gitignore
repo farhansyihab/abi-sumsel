@@ -27,8 +27,10 @@ venv.bak/
 .env
 .env.local
 .env.production
+.env.production_belum
 .env.development
 .env.test
+.env.docker
 .env.*.local
 
 # Docker

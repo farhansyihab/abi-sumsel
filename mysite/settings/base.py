@@ -12,6 +12,24 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from pathlib import Path
+import environ
+import os
+
+env = environ.Env()
+
+# Baca file .env berdasarkan environment
+if os.path.exists('.env'):
+    environ.Env.read_env('.env')
+elif os.path.exists('.env.production'):
+    environ.Env.read_env('.env.production')
+
+
+
+SECRET_KEY = env('SECRET_KEY')
+
+DEBUG = env.bool('DEBUG', False)
+
+ALLOWED_HOSTS = ["*"]
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = PROJECT_DIR.parent
@@ -56,6 +74,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "home.middleware.DebugMiddleware", 
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -92,17 +111,19 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 # Database
 # Database PostgreSQL
 # Jika mau pakai user postgres default
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'abi_baru',          # Database yang sudah ada
+#         'USER': 'postgres',          # User default PostgreSQL
+#         'PASSWORD': 'sukadar',       # Password PostgreSQL Anda
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'abi_baru',          # Database yang sudah ada
-        'USER': 'postgres',          # User default PostgreSQL
-        'PASSWORD': 'sukadar',       # Password PostgreSQL Anda
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    'default': env.db('DATABASE_URL')
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
