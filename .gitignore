@@ -148,4 +148,7 @@ docker-compose.*.yml
 # Docker
 .env.docker
 docker-compose.override.yml
+docker-compose.yml
+Dockerfile
+entrypoint.sh
 .docker/
