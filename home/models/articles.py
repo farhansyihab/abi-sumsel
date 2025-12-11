@@ -70,15 +70,21 @@ class ArticlePage(Page):
         help_text="Deskripsi untuk share di media sosial (jika kosong, gunakan excerpt)"
     )
     
-    meta_og_image = models.ForeignKey(
-        Image,
-        null=True,
+    # meta_og_image = models.ForeignKey(
+    #     Image,
+    #     null=True,
+    #     blank=True,
+    #     on_delete=models.SET_NULL,
+    #     related_name="+",
+    #     verbose_name="OG Image",
+    #     help_text="Gambar untuk share di media sosial (1200x630 px, jika kosong gunakan featured_image)"
+    # )  
+    meta_og_image_url = models.URLField(
+        "OG Image URL",
+        max_length=500,
         blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-        verbose_name="OG Image",
-        help_text="Gambar untuk share di media sosial (1200x630 px, jika kosong gunakan featured_image)"
-    )    
+        help_text="URL gambar eksternal untuk share di media sosial (1200x630 px, jika kosong gunakan featured_image)"
+    )  
     
     template = "home/article_detail_fixed.html"
     # template = "home/article_detail.html"
@@ -118,7 +124,8 @@ class ArticlePage(Page):
         FieldPanel('search_description'),
         FieldPanel('meta_og_title'),
         FieldPanel('meta_og_description'),
-        FieldPanel('meta_og_image'),
+        FieldPanel('meta_og_image_url'),
+        # FieldPanel('meta_og_image'),
     ]
 
     def get_og_title(self):
@@ -127,13 +134,23 @@ class ArticlePage(Page):
     def get_og_description(self):
         return self.meta_og_description or self.excerpt or self.search_description
     
+    # def get_og_image_url(self, request=None):
+    #     if self.meta_og_image:
+    #         return self.meta_og_image.get_rendition('fill-1200x630').url
+    #     elif self.featured_image:
+    #         return self.featured_image.get_rendition('fill-1200x630').url
+    #     return None  
+
     def get_og_image_url(self, request=None):
-        if self.meta_og_image:
-            return self.meta_og_image.get_rendition('fill-1200x630').url
+        # Prioritaskan URL eksternal
+        if self.meta_og_image_url:
+            return self.meta_og_image_url
         elif self.featured_image:
+            # Fallback ke featured_image lokal
             return self.featured_image.get_rendition('fill-1200x630').url
-        return None  
-    
+        # Return None jika tidak ada gambar sama sekali
+        return None
+
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         

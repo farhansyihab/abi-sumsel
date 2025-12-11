@@ -8,16 +8,24 @@
     <meta property="og:type" content="article">
     <meta property="og:title" content="{{ page.get_meta_title }}">
     <meta property="og:description" content="{{ page.get_meta_description }}">
+
+    <!-- Fix untuk og:image -->
+    {% if meta_og_image_url %}
+        <!-- Jika ada URL gambar OG dari model -->
+        <meta property="og:image" content="{{ meta_og_image_url }}">
+    {% elif page.featured_image %}
+        <!-- Fallback ke featured_image jika ada -->
+        {% image page.featured_image fill-1200x630 as og_image %}
+        <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ og_image.url }}">
+    {% else %}
+        <!-- Default logo jika tidak ada gambar sama sekali -->
+        <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/logoabi.png' %}">
+    {% endif %}
     
-    {% with meta_image_url=page.get_meta_image_url %}
-        {% if meta_image_url %}
-        <meta property="og:image" content="{{ meta_image_url }}">
-        <meta property="og:image:width" content="1200">
-        <meta property="og:image:height" content="630">
-        {% else %}
-        <meta property="og:image" content="{% static 'img/logoabi.png' %}">
-        {% endif %}
-    {% endwith %}
+    {% if meta_og_image_url or page.featured_image %}
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    {% endif %}  
     
     <meta property="og:site_name" content="DPW ABI Sumatera Selatan">
     
