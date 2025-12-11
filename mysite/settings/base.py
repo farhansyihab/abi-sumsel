@@ -18,8 +18,8 @@ import os
 env = environ.Env()
 
 # Baca file .env berdasarkan environment
-if os.path.exists('.env'):
-    environ.Env.read_env('.env')
+if os.path.exists('.env.dev'):
+    environ.Env.read_env('.env.dev')
 elif os.path.exists('.env.production'):
     environ.Env.read_env('.env.production')
 
