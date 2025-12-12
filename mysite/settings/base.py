@@ -42,7 +42,7 @@ BASE_DIR = PROJECT_DIR.parent
 # Application definition
 
 INSTALLED_APPS = [
-    'home',
+    'home.apps.HomeConfig',
     'search',
     
     # Wagtail apps
@@ -108,21 +108,18 @@ TEMPLATES = [
 WSGI_APPLICATION = "mysite.wsgi.application"
 
 
-# Database
-# Database PostgreSQL
-# Jika mau pakai user postgres default
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'abi_baru',          # Database yang sudah ada
-#         'USER': 'postgres',          # User default PostgreSQL
-#         'PASSWORD': 'sukadar',       # Password PostgreSQL Anda
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
 DATABASES = {
-    'default': env.db('DATABASE_URL')
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv("DB_NAME"),
+        'USER': os.getenv("DB_USER"),
+        'PASSWORD': os.getenv("DB_PASSWORD"),
+        'HOST': os.getenv("DB_HOST"),
+        'PORT': os.getenv("DB_PORT"),
+        'OPTIONS': {
+            'options': '-c search_path=public'
+        },
+    }
 }
 
 # Password validation
