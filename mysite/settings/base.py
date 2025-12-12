@@ -29,7 +29,16 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = os.getenv("DEBUG")
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS")
+
+# Ambil nilai dari environment variable
+allowed_hosts_str = os.getenv("ALLOWED_HOSTS")
+
+# Pisahkan string menjadi list berdasarkan koma
+if allowed_hosts_str:
+    ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_str.split(',')]
+else:
+    # Fallback jika environment variable tidak diset
+    ALLOWED_HOSTS = []
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = PROJECT_DIR.parent
