@@ -18,18 +18,18 @@ import os
 env = environ.Env()
 
 # Baca file .env berdasarkan environment
-if os.path.exists('.env.dev'):
-    environ.Env.read_env('.env.dev')
-elif os.path.exists('.env.production'):
-    environ.Env.read_env('.env.production')
+# if os.path.exists('.env.production'):
+#     environ.Env.read_env('.env.production')
+# elif os.path.exists('.env.dev'):
+#     environ.Env.read_env('.env.dev')
 
 
 
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = env.bool('DEBUG', False)
+DEBUG = os.getenv("DEBUG")
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS")
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = PROJECT_DIR.parent
