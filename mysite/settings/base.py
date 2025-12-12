@@ -27,7 +27,7 @@ env = environ.Env()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = os.getenv("DEBUG")
+DEBUG = True
 
 
 # Ambil nilai dari environment variable
