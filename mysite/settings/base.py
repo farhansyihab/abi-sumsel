@@ -61,6 +61,10 @@ INSTALLED_APPS = [
     
     'modelcluster',
     'taggit',
+
+    # Bakery apps
+    'bakery',
+    'wagtailbakery',  
     
     # Django contrib apps
     'django.contrib.admin',
@@ -85,6 +89,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
 ]
+
 
 ROOT_URLCONF = "mysite.urls"
 
