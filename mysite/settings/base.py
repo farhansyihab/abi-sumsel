@@ -17,14 +17,6 @@ import os
 
 env = environ.Env()
 
-# Baca file .env berdasarkan environment
-# if os.path.exists('.env.production'):
-#     environ.Env.read_env('.env.production')
-# elif os.path.exists('.env.dev'):
-#     environ.Env.read_env('.env.dev')
-
-
-
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = True
