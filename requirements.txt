@@ -10,3 +10,4 @@ drf-spectacular
 django-filter
 django_environ
 wagtail-bakery
+django-cors-headers

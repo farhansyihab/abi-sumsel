@@ -152,3 +152,8 @@ docker-compose.yml
 Dockerfile
 entrypoint.sh
 .docker/
+
+# file statis
+public/
+public/*
+public/static/
