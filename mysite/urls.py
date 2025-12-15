@@ -8,7 +8,7 @@ from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
-from home.views import debug_articles, debug_article_detail, test_basic_view
+from home.views import debug_articles, debug_article_detail, test_basic_view, health_check
 
 from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.api.v2.router import WagtailAPIRouter
@@ -43,6 +43,7 @@ urlpatterns = [
     path("django-admin/", admin.site.urls),
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
+    path('health/', health_check, name='health_check'), # Tambahkan baris ini
     
     # ===== SEARCH =====
     path("search/", search_views.search, name="search"),

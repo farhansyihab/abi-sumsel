@@ -1,4 +1,5 @@
 # home/views.py
+import json
 from django.http import JsonResponse, HttpResponse
 from django.core.paginator import Paginator
 from home.models import ArticlePage, ArticleIndexPage
@@ -72,3 +73,19 @@ def test_basic_view(request, article_id):
     </body>
     </html>
     """)    
+
+def health_check(request):
+    """
+    Simple health check view.
+    Returns a 200 response with JSON indicating the service is healthy.
+    """
+    if request.method == 'GET':
+        status = {'status': 'healthy'}
+        return HttpResponse(json.dumps(status), content_type='application/json')
+    else:
+        # Hanya tangani GET
+        return HttpResponse(json.dumps({'status': 'not healthy', 'reason': 'Method not allowed'}), status=405, content_type='application/json')
+
+# Atau, jika Anda ingin respons statis yang sangat sederhana:
+# def health_check(request):
+#     return HttpResponse("OK")
