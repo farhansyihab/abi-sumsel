@@ -19,7 +19,7 @@ env = environ.Env()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = True
+DEBUG = False
 
 
 # Ambil nilai dari environment variable
@@ -35,7 +35,15 @@ else:
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = PROJECT_DIR.parent
 
-
+CSRF_TRUSTED_ORIGINS = [
+    'https://abi-sumsel.my.id',
+    'https://abi-sumsel-1016790426168.asia-southeast2.run.app',
+    'https://abi-ssr.onrender.com/',
+    'https://shrill-butterfly-d4ea.agiptek.workers.dev',
+    'https://abisumselorg.web.app',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000'
+]
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
