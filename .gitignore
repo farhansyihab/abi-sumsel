@@ -33,10 +33,16 @@ venv.bak/
 .env.test
 .env.docker
 .env.*.local
+# --- TAMBAHAN ---
+.env*
 
 # Docker
 docker-compose.override.yml
 .docker/
+# --- TAMBAHAN ---
+docker-compose.yml
+Dockerfile
+entrypoint.sh
 
 # IDE
 .vscode/
@@ -154,6 +160,19 @@ entrypoint.sh
 .docker/
 
 # file statis
+public/
+public/*
+public/static/
+
+# --- TAMBAHAN ---
+# Jika Anda tidak ingin menyimpan file settings development di repo
+# mysite/settings/dev.py
+# mysite/settings/development.py
+# mysite/settings/local.py
+# (Hapus komentar # di atas jika Anda ingin mengabaikannya)
+
+# Output dari wagtail-bakery (file statis untuk Firebase)
+output_static/
 public/
 public/*
 public/static/

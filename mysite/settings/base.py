@@ -19,31 +19,43 @@ env = environ.Env()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = False
 
 
-# Ambil nilai dari environment variable
-allowed_hosts_str = os.getenv("ALLOWED_HOSTS")
 
-# Pisahkan string menjadi list berdasarkan koma
-if allowed_hosts_str:
-    ALLOWED_HOSTS = [host.strip() for host in allowed_hosts_str.split(',')]
-else:
-    # Fallback jika environment variable tidak diset
-    ALLOWED_HOSTS = []
+ALLOWED_HOSTS  = [
+    'localhost',
+    '127.0.0.1', 
+    '0.0.0.0',    
+    'abi-sumsel.my.id',
+    'abi-sumsel-1016790426168.asia-southeast2.run.app',
+    'abi-ssr.onrender.com',
+    'shrill-butterfly-d4ea.agiptek.workers.dev',
+    'abisumselorg.web.app',
+]
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = PROJECT_DIR.parent
 
 CSRF_TRUSTED_ORIGINS = [
+    'https://*.my.id',
     'https://abi-sumsel.my.id',
     'https://abi-sumsel-1016790426168.asia-southeast2.run.app',
-    'https://abi-ssr.onrender.com/',
+    'https://abi-ssr.onrender.com',
     'https://shrill-butterfly-d4ea.agiptek.workers.dev',
     'https://abisumselorg.web.app',
     'http://localhost:8000',
-    'http://127.0.0.1:8000'
+    'http://127.0.0.1:8000',
+    'https://*.run.app',
+    'https://*.workers.dev',
 ]
+
+CSRF_COOKIE_SAMESITE = None       # ← Letakkan di sini
+CSRF_COOKIE_SECURE = True          # ←
+CSRF_COOKIE_HTTPONLY = False       # ←
+CSRF_USE_SESSIONS = False          # ←
+CSRF_COOKIE_DOMAIN = None          # ← Opsional, tapi penting untuk Cloud Run
+CSRF_COOKIE_NAME = 'csrftoken'     # ← Default, bisa dibiarkan
+CSRF_HEADER_NAME = 'HTTP_X_CSRFTOKEN'  # ← Untuk custom header
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
