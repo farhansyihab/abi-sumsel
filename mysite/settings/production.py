@@ -4,8 +4,8 @@ from .base import *
 # outdated JavaScript / CSS assets being served from cache
 # (e.g. after a Wagtail upgrade).
 # See https://docs.djangoproject.com/en/6.0/ref/contrib/staticfiles/#manifeststaticfilesstorage
-DEBUG = os.getenv("DEBUG")
-STORAGES["staticfiles"]["BACKEND"] = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+DEBUG = os.environ.get('DEBUG', '').lower().strip() == 'true'
+# STORAGES["staticfiles"]["BACKEND"] = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 try:
     from .local import *
