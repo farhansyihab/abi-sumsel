@@ -28,9 +28,12 @@ ALLOWED_HOSTS  = [
     '0.0.0.0',    
     'abi-sumsel.my.id',
     'abi-sumsel-1016790426168.asia-southeast2.run.app',
+    'abi-sumsel-ybxn6kqjaa-et.a.run.app',
+    '*.run.app',
     'abi-ssr.onrender.com',
     'shrill-butterfly-d4ea.agiptek.workers.dev',
     'abisumselorg.web.app',
+    '*',
 ]
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +43,7 @@ CSRF_TRUSTED_ORIGINS = [
     'https://*.my.id',
     'https://abi-sumsel.my.id',
     'https://abi-sumsel-1016790426168.asia-southeast2.run.app',
+    'https://abi-sumsel-ybxn6kqjaa-et.a.run.app',
     'https://abi-ssr.onrender.com',
     'https://shrill-butterfly-d4ea.agiptek.workers.dev',
     'https://abisumselorg.web.app',
@@ -105,6 +109,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware', #← Warning ada kemungkinan berbahaya
     "home.middleware.DebugMiddleware", 
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
