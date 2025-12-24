@@ -10,5 +10,5 @@ BAKERY_VIEWS = (
 STATIC_ROOT = os.path.join(BUILD_DIR, 'static') # /path/to/project/public/static
 
 # Anda mungkin juga ingin menonaktifkan fitur yang tidak relevan untuk build
-DEBUG = True # Biasanya True untuk build, tapi bisa disesuaikan
+DEBUG = os.environ.get('DEBUG').lower().strip() == 'true'
 # LOGGING = {...} # Sesuaikan logging jika perlu
